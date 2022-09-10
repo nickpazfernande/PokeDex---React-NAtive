@@ -6,6 +6,8 @@ import Header from "../components/Pokemon/Header";
 import Type from "../components/Pokemon/Type";
 import Stats from "../components/Pokemon/Stats";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import Favorite from "../components/Pokemon/Favorite";
+import useAuth from "../hooks/useAuth";
 
 export default function Pokemon(props) {
   const [pokemon, setPokemon] = useState(null);
@@ -13,13 +15,8 @@ export default function Pokemon(props) {
     route: { params },
     navigation,
   } = props;
+  const { auth } = useAuth();
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => null,
-      headerLeft: () => <Icon name="arrow-left" color="#fff" size={20} style={{marginLeft: 20}} onPress={() => navigation.goBack()} />,
-    });
-  }, [navigation, params]);
   useEffect(() => {
     //useEffect ejectua una funcion async
     (async () => {
@@ -34,14 +31,30 @@ export default function Pokemon(props) {
       }
     })();
     //Cada vez que cambie el params, se ejecuta este useEffect.
-  }, [params.id]);
+  }, [params]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (auth ? <Favorite id={pokemon?.id} />  : null),
+      headerLeft: () => (
+        <Icon
+          name="arrow-left"
+          color="#fff"
+          size={20}
+          style={{ marginLeft: 20 }}
+          onPress={() => navigation.goBack()}
+        />
+      ),
+    });
+  }, [navigation, params, pokemon, auth ]);
+
 
   //Si no existe pokemon que no retorne nada.
   if (!pokemon) return null;
 
   return (
-    <SafeAreaView>
-      <ScrollView>
+    <ScrollView>
+      <SafeAreaView>
         <Header
           name={pokemon.name}
           order={pokemon.order}
@@ -50,7 +63,7 @@ export default function Pokemon(props) {
         />
         <Type types={pokemon.types} />
         <Stats stats={pokemon.stats} />
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   );
 }

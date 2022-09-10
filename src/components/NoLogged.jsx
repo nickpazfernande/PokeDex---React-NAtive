@@ -15,7 +15,7 @@ export default function NoLogged() {
 
 const styles = StyleSheet.create({
   content: {
-    marginVertical: 50,
+    marginVertical: "60%",
     paddingHorizontal: 50,
   },
   text: {

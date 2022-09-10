@@ -1,4 +1,4 @@
-import { ScrollView } from "react-native";
+import { ScrollView, StyleSheet} from "react-native";
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getPokemonDetailsApi } from "../api/pokemon";
@@ -53,12 +53,12 @@ export default function Pokemon(props) {
   if (!pokemon) return null;
 
   return (
-    <ScrollView>
-      <SafeAreaView>
+    <ScrollView >
+      <SafeAreaView >
         <Header
           name={pokemon.name}
           order={pokemon.order}
-          image={pokemon.sprites.front_default}
+          image={pokemon.sprites.other.home.front_default}
           type={pokemon.types[0].type.name}
         />
         <Type types={pokemon.types} />
@@ -67,3 +67,4 @@ export default function Pokemon(props) {
     </ScrollView>
   );
 }
+

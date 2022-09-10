@@ -5,8 +5,8 @@ export default function Stats(props) {
   const { stats } = props;
 
   const getBarStyle = (num) => {
-    const color = num > 49 ? "#00ac17" : "#ff3e3e";
-
+    let color = num > 49 ? "#00ac17" : "#ff3e3e";
+    num > 30 && num < 60 ? color = "#f2d053" : ""
     return {
       width: `${num}%`,
       backgroundColor: color,
@@ -38,7 +38,7 @@ export default function Stats(props) {
 const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 20,
-    marginTop: 40,
+    marginVertical: 40,
   },
   title: {
     fontWeight: "bold",

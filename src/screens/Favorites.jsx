@@ -6,6 +6,7 @@ import { getPokemonFavoriteApi } from "../api/favorite";
 import { getPokemonDetailsApi } from "../api/pokemon";
 import PokemonList from "../components/PokemonsList";
 import NoLogged from "../components/NoLogged";
+import NoFavorites from "../components/NoFavorites";
 
 export default function Favorites() {
   const [pokemons, setPokemons] = useState([]);
@@ -43,10 +44,13 @@ export default function Favorites() {
     }, [auth])
   );
 
-  //Si existe auth mostramos la lista de pokemons. 
-  return !auth ? (
-    <NoLogged />
-  ) : (
+  if (!auth) {
+    return <NoLogged />;
+  }
+  //Si existe auth mostramos la lista de pokemons.
+  return pokemons.length > 0 ? (
     <PokemonList pokemons={pokemons} />
+  ) : (
+    <NoFavorites />
   );
 }

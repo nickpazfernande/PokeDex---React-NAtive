@@ -40,7 +40,7 @@ export default function UserData() {
         <ItemMenu title="Email" text={`${auth.email}`} />
         <ItemMenu
           title="Total Favoritos"
-          text={total}
+          text={total + ' pokemons'}
         />
       </View>
 
@@ -57,7 +57,7 @@ function ItemMenu(props) {
   return (
     <View style={styles.ItemMenu}>
       <Text style={styles.itemMenuTitle}>{title}:  </Text>
-      <Text>{text + ' pokemons'}</Text>
+      <Text>{text }</Text>
     </View>
   );
 }
